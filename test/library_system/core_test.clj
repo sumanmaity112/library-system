@@ -1,6 +1,6 @@
 (ns library_system.core-test
   (:require [clojure.test :refer :all]
-            [library_system.core :refer :all]))
+            [library_system.Application :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."
