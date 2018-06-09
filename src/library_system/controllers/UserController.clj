@@ -1,14 +1,18 @@
+
 (ns library_system.controllers.UserController
   (:use compojure.core)
   (:require [compojure.route :as route]
             [compojure.handler :as handler]
-            [compojure.response :as response]))
+            [compojure.response :as response]
+            [library_system.dao.DBConnection :refer [fruit-table-ddl, executeQuery]]))
+
+
 
 
 
 
 (defn index-page []
-  (str "<b> Hello World!!!</b>"))
+  (str (seq (take 5 (executeQuery ["select * from fruit"])))))
 
 (defn hello []
   (str "hello"))
@@ -21,4 +25,3 @@
 
 (def app
   (-> (handler/site main-routes)))
-

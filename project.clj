@@ -6,5 +6,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [ring "1.7.0-RC1"]
                  [compojure "1.6.1"]
-                 [clj-time "0.14.2"]]
+                 [clj-time "0.14.2"]
+                 [org.clojure/java.jdbc "0.7.6"]
+                 [org.postgresql/postgresql "42.2.2"]]
   :main library_system.Application)
