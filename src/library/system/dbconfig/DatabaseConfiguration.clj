@@ -1,11 +1,12 @@
 (ns library.system.dbconfig.DatabaseConfiguration
-  (:require [clojure.java.jdbc :as jdbc])
-  )
+  (:require [clojure.java.jdbc :as jdbc]
+            [environ.core :refer [env]]
+            ))
 
 (def dbConfig
   {:dbtype   "postgresql"
-   :dbname   "library"
-   :host     "192.168.33.10"
-   :user     "library_admin"
-   :password ""
+   :dbname   (env :database-name)
+   :host     (env :host-name)
+   :user     (env :username)
+   :password (env :password)
    :classname "org.postgresql.Driver"})
