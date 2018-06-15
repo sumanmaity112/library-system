@@ -1,6 +1,6 @@
-(ns library.system.Application
+(ns library.system.application
   (:use [ring.adapter.jetty :only [run-jetty]]
-            [library.system.controllers.UserController :refer [app]]))
+        [library.system.controllers.books-controller :refer [app]]))
 
 (defn -main [& args]
   (run-jetty app {:port 8080})
