@@ -13,7 +13,8 @@
                  [org.clojure/java.jdbc "0.7.6"]
                  [org.postgresql/postgresql "42.2.2"]
                  [environ "1.1.0"]
-                 [ring/ring-mock "0.3.2"]]
+                 [ring/ring-mock "0.3.2"]
+                 [ragtime "0.7.2"]]
   :plugins
   [[lein-environ "1.1.0"]]
   :main library.system.application)

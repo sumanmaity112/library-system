@@ -2,9 +2,9 @@
   (:require [environ.core :refer [env]]))
 
 (def db-config
-  {:dbtype   (env :dbtype)
-   :dbname   (env :database-name)
-   :host     (env :host-name)
-   :user     (env :username)
-   :password (env :password)
+  {:dbtype    (env :dbtype)
+   :dbname    (env :database-name)
+   :host      (env :host-name)
+   :user      (env :username)
+   :password  (env :password)
    :classname (env :driver-class-name)})
