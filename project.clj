@@ -14,8 +14,7 @@
                  [org.postgresql/postgresql "42.2.2"]
                  [environ "1.1.0"]
                  [ring/ring-mock "0.3.2"]
-                 [ragtime "0.7.2"]
-                 [stubadub "2.0.0"]]
+                 [ragtime "0.7.2"]]
   :plugins
   [[lein-environ "1.1.0"]]
   :main library.system.application)
