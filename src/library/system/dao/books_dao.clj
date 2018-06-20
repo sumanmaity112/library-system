@@ -10,3 +10,6 @@
 (defn get-book-by-name-from-db [^String name]
   (jdbc/query db-config
               ["SELECT name,no_of_copies FROM book_info WHERE name = ?" name]))
+
+(defn get-books []
+  (jdbc/query db-config ["select name, no_of_copies from book_info"]))

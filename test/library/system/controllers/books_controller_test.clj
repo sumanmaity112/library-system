@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all])
   (:require [library.system.controllers.books-controller :refer [app]]
             [ring.mock.request :as mock]
-            [library.system.service.book-service :refer [add-new-book search-book-by-name]]))
+            [library.system.service.book-service :refer [add-new-book search-book-by-name get-all-books]]))
 
 (deftest should-add-new-book-to-system
   (with-redefs [add-new-book (fn [^String name ^Integer no-of-copies] {:name name :id 1})]
@@ -22,3 +22,12 @@
       (are [expected actual] (= expected actual)
                              200 (response :status)
                              "{\"name\":\"test_book\",\"no_of_copies\":2}" (response :body)))))
+
+(deftest should-get-all-books
+  (with-redefs [get-all-books (fn [] (list {:name "test_book" :no_of_copies 2}))]
+    (let [response
+          (app (-> (mock/request :get "/books")))]
+      (are [expected actual] (= expected actual)
+                             200 (response :status)
+                             "[{\"name\":\"test_book\",\"no_of_copies\":2}]" (response :body)))))
+

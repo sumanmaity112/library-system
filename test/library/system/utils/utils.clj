@@ -1,6 +1,6 @@
 (ns library.system.utils.utils
   (:require [library.system.dbconfig.database-configuration :refer [db-config]]
-            [clojure.java.jdbc :refer [execute! drop-table-ddl]]))
+            [clojure.java.jdbc :refer [execute!]]))
 
 (defn create-book-info-table []
   (execute! db-config ["CREATE TABLE book_info (
