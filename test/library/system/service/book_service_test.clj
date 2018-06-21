@@ -1,7 +1,7 @@
 (ns library.system.service.book-service-test
   (:require [clojure.test :refer :all]
-            [library.system.service.book-service :refer [add-new-book search-book-by-name get-all-books]]
-            [library.system.dao.books-dao :refer [get-book-by-name-from-db add-new-book-to-db get-books]]))
+            [library.system.service.book-service :refer [add-new-book search-book-by-name get-all-books update-book-by-id]]
+            [library.system.dao.books-dao :refer [get-book-by-name-from-db add-new-book-to-db get-books update-book]]))
 
 
 (deftest should-add-a-new-book
@@ -27,4 +27,11 @@
     (let [result (get-all-books)]
       (are [expected actual] (= expected actual)
                              (list {:name "one-book", :no_of_copies 2}) result)
+      )))
+
+(deftest should-update-book-data-for-given-id
+  (with-redefs [update-book (fn [id ^String name no_of_copies] (list 1))]
+    (let [result (update-book-by-id 1 "some_book" 100)]
+      (are [expected actual] (= expected actual)
+                             (list 1) result)
       )))
