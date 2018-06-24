@@ -1,11 +1,10 @@
 {
  :up   [
-        "CREATE TABLE IF NOT EXISTS book_info (
+        "CREATE TABLE IF NOT EXISTS genres(
         id SERIAL PRIMARY KEY,
-        name VARCHAR(100),
-        no_of_copies INTEGER,
+        genre VARCHAR(50) NOT NULL,
         date_created TIMESTAMP default (now() at time zone 'utc'),
         date_changed TIMESTAMP default NULL);"
         ]
- :down ["DROP TABLE book_info;"]
+ :down ["DROP TABLE IF EXISTS genres cascade;"]
  }
