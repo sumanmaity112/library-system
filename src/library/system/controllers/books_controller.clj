@@ -8,7 +8,7 @@
             [library.system.service.borrower-service :refer [borrow-book]]))
 
 (defroutes main-routes
-           (POST "/add" [^String name no_of_copies] (response (add-new-book name (Integer. no_of_copies))))
+           (POST "/add" [^String name no_of_copies ^String author-name ^String description ^String logo-url ^String genre] (response (add-new-book name (Integer. no_of_copies) author-name description logo-url genre)))
            (GET "/books" [] (response (get-all-books)))
            (GET "/search" [^String name] (response (search-book-by-name name)))
            (POST "/update" [id ^String name no_of_copies ] (response (update-book-by-id (Integer. id) name (Integer. no_of_copies))))

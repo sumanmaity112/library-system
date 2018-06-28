@@ -1,16 +1,23 @@
 (ns library.system.service.book-service-test
   (:require [clojure.test :refer :all]
             [library.system.service.book-service :refer [add-new-book search-book-by-name get-all-books update-book-by-id]]
-            [library.system.dao.books-dao :refer [get-book-by-name-from-db add-new-book-to-db get-books update-book]]))
+            [library.system.dao.books-dao :refer [get-book-by-name-from-db add-new-book-to-db get-books update-book get-genre-details]]))
 
 
 (deftest should-add-a-new-book
-  (with-redefs [add-new-book-to-db (fn [name no-of-copies] (lazy-seq (list {:id           7
-                                                                            :name         name
-                                                                            :no_of_copies no-of-copies
-                                                                            :date_created nil
-                                                                            :date_changed nil})))]
-    (let [result (add-new-book "Lord" 10)]
+  (with-redefs [add-new-book-to-db
+                (fn [^String name, ^Integer no-of-copies, ^String author-name, ^String description, ^String logo-url, ^Integer genre-id]
+                  (lazy-seq (list {:id           7
+                                   :name         name
+                                   :no_of_copies no-of-copies
+                                   :date_created nil
+                                   :date_changed nil
+                                   :author_name  author-name
+                                   :description description
+                                   :logo_url logo-url
+                                   :genre_id genre-id})))
+                get-genre-details (fn [genre] (lazy-seq (list {:id 1 :genre genre})))]
+    (let [result (add-new-book "Lord" 10 "author-name" "test description" "logo-url" "genre-name")]
       (are [expected actual] (= expected actual)
                              "Lord" (get result :name)
                              7 (get result :id)))))

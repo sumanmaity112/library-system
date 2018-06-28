@@ -5,7 +5,7 @@
             [library.system.service.book-service :refer [add-new-book search-book-by-name get-all-books update-book-by-id]]))
 
 (deftest should-add-new-book-to-system
-  (with-redefs [add-new-book (fn [^String name ^Integer no-of-copies] {:name name :id 1})]
+  (with-redefs [add-new-book (fn [^String name, ^Integer no-of-copies, ^String author-name, ^String description, ^String logo-url, ^Integer genre-id] {:name name :id 1})]
     (let [response (app (-> (mock/request :post "/add") (mock/body {:name "test" :no_of_copies "6"})))]
       (are [expected actual] (= expected actual)
                              200 (response :status)

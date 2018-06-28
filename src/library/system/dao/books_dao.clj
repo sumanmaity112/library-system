@@ -4,10 +4,20 @@
             [clj-time.coerce :refer [to-sql-time]]
             [clj-time.core :refer [now]]))
 
-(defn add-new-book-to-db [^String name, ^Integer no-of-copies]
+(defn add-new-book-to-db [^String name, ^Integer no-of-copies, ^String author-name, ^String description, ^String logo-url, ^Integer genre-id]
   (jdbc/insert! db-config :book_info
-                {:name name, :no_of_copies no-of-copies}))
+                {:name name, :no_of_copies no-of-copies, :author_name author-name, :description description :logo_url logo-url :genre_id genre-id}))
 
+(defn add-genre
+  "Add new genre to genres table"
+  [name]
+  (jdbc/insert! db-config :genres {:genre name})
+  )
+
+(defn get-genre-details
+  "Get genre details for given genre"
+  [genre]
+  (jdbc/query db-config ["SELECT * FROM genres where LOWER(genre) = LOWER(?)" genre]))
 
 (defn get-book-by-name-from-db [^String name]
   (jdbc/query db-config
