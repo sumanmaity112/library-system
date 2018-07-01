@@ -13,8 +13,27 @@
                  [org.clojure/java.jdbc "0.7.6"]
                  [org.postgresql/postgresql "42.2.2"]
                  [environ "1.1.0"]
-                 [ring/ring-mock "0.3.2"]
                  [ragtime "0.7.2"]]
-  :plugins
-  [[lein-environ "1.1.0"]]
-  :main library.system.application)
+  :plugins [[lein-environ "1.1.0"]]
+
+  :profiles {
+             :uberjar      {:omit-source true
+                            :aot         :all
+                            }
+             :dev          [:project/dev :profiles/dev]
+             :test         [:dev :project/test :profiles/test]
+             :project/dev  {
+                            :dependencies [[ring/ring-mock "0.3.2"]
+                                           [pjstadig/humane-test-output "0.8.3"]]
+                            :plugins      [[com.jakemccrary/lein-test-refresh "0.22.0"]
+                                           [lein-kibit "0.1.6"]
+                                           [lein-pprint "1.1.1"]]
+                            :injections   [(require 'pjstadig.humane-test-output)
+                                           (pjstadig.humane-test-output/activate!)]
+                            :test-refresh {:notify-command ["terminal-notifier" "-title" "Tests" "-message"]
+                                           :quiet          true
+                                           :changes-only   true}
+                            }
+             :project/test {}
+             }
+  :main ^:skip-aot library.system.application)
