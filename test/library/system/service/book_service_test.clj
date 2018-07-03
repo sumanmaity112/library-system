@@ -1,7 +1,7 @@
 (ns library.system.service.book-service-test
   (:require [clojure.test :refer :all]
-            [library.system.service.book-service :refer [add-new-book search-book-by-name get-all-books update-book-by-id]]
-            [library.system.dao.books-dao :refer [get-book-by-name-from-db add-new-book-to-db get-books update-book get-genre-details]]))
+            [library.system.service.book-service :refer [add-new-book search-book-by-name get-all-books update-book-by-id get-all-genres]]
+            [library.system.dao.books-dao :refer [get-book-by-name-from-db add-new-book-to-db get-books update-book get-genre-details get-genres]]))
 
 
 (deftest should-add-a-new-book
@@ -13,9 +13,9 @@
                                    :date_created nil
                                    :date_changed nil
                                    :author_name  author-name
-                                   :description description
-                                   :logo_url logo-url
-                                   :genre_id genre-id})))
+                                   :description  description
+                                   :logo_url     logo-url
+                                   :genre_id     genre-id})))
                 get-genre-details (fn [genre] (lazy-seq (list {:id 1 :genre genre})))]
     (let [result (add-new-book "Lord" 10 "author-name" "test description" "logo-url" "genre-name")]
       (are [expected actual] (= expected actual)
@@ -41,4 +41,10 @@
     (let [result (update-book-by-id 1 "some_book" 100)]
       (are [expected actual] (= expected actual)
                              (list 1) result)
+      )))
+
+(deftest should-get-all-genres
+  (with-redefs [get-genres (fn [] (list {:name "test" :id 1} {:name "spike" :id 2}))]
+    (let [result (get-all-genres)]
+      (is (list {:name "test" :id 1} {:name "spike" :id 2}) result)
       )))

@@ -28,3 +28,8 @@
 
 (defn update-book [id ^String name no_of_copies]
   (jdbc/update! db-config :book_info {:name name :no_of_copies no_of_copies :date_changed (to-sql-time (now))} ["id=?" id]))
+
+(defn get-genres
+  "Get all genres present in genre table"
+  []
+  (jdbc/query db-config ["SELECT genre AS name, id FROM genres"]))

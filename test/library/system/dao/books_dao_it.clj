@@ -1,7 +1,6 @@
 (ns library.system.dao.books-dao-it
   (:require [clojure.test :refer :all])
-  (:require [library.system.dao.books-dao :refer [get-book-by-name-from-db add-new-book-to-db get-books update-book add-genre get-genre-details]]
-            [library.system.utils.test-utils :as utils]
+  (:require [library.system.dao.books-dao :refer [get-book-by-name-from-db add-new-book-to-db get-books update-book add-genre get-genre-details get-genres]]
             [library.system.utils.db-utils :refer [migrate rollback-all]]))
 
 (defn create-sandbox [predicate] (migrate) (add-genre "test") (predicate) (rollback-all))
@@ -52,3 +51,10 @@
   (let [result (get-books)]
     (are [expected actual] (= expected actual)
                            {:name "updated" :no_of_copies 10} (first result))))
+
+(deftest should-give-all-genres-currently-present-in-system
+  (add-genre "test1")
+  (let [result (get-genres)]
+    (are [expected actual] (= expected actual)
+                           2 (count result)                 ;; As `test` genre is added as part of fixture
+                           (list {:name "test" :id 1} {:name "test1" :id 2}) result)))

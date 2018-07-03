@@ -8,9 +8,9 @@
   (with-redefs [add-new-book (fn [^String name, ^Integer no-of-copies, ^String author-name, ^String description, ^String logo-url, ^Integer genre-id] {:name name :id 1})]
     (let [response (app (-> (mock/request :post "/add") (mock/body {:name "test" :no_of_copies "6"})))]
       (are [expected actual] (= expected actual)
-                             200 (response :status)
-                             {"Content-Type" "application/json; charset=utf-8"} (response :headers)
-                             "{\"name\":\"test\",\"id\":1}" (response :body)
+                             302 (response :status)
+                             {"Location" "http://localhost/books",
+                              "Content-Type" "application/octet-stream"} (response :headers)
                              )
       )
     ))

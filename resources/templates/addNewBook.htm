@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Add new book</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/styles/common.css">
+</head>
+<body>
+<div class="container">
+    <h2 style="text-align: center">Add New Book</h2>
+    <form action="/add" method="POST">
+        <div class="form-group required">
+            <label for="name"><b>Book Name</b></label>
+            <input type="text" id="name" class="form-control" name="name" placeholder="Enter book name" required/>
+        </div>
+        <div class="form-group required">
+            <label for="no-of-copies"><b>No of Copies</b></label>
+            <input type="number" id="no-of-copies" class="form-control" name="no_of_copies" min="1" placeholder="Select number of copies from drop-down" required/>
+        </div>
+
+        <div class="form-group required">
+            <label for="author-name"><b>Author Name</b></label>
+            <input type="text" id="author-name" class="form-control" name="author-name" placeholder="Enter author name" required/>
+        </div>
+
+        <div class="form-group">
+            <label for="description"><b>Description</b></label>
+            <input type="text" id="description" class="form-control" name="description" placeholder="Enter brief description"/>
+        </div>
+
+        <div class="form-group">
+            <label for="logo-url"><b>Logo URL</b></label>
+            <input type="text" id="logo-url" class="form-control" name="logo-url" placeholder="Enter logo URL (e.g.- https://www.example.com)"/>
+        </div>
+
+        <div class="form-group required">
+            <label for="genre"><b>Genre</b></label>
+            <select name="genre" id="genre" class="form-control" required>
+                <option value="">Select from drop-down</option>
+                {% for genre in genres %}
+                <option value="{{genre.name}}">{{genre.name|title}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success btn-block">Save</button>
+    </form>
+</div>
+</body>
+</html>
